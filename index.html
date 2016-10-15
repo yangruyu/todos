@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" ng-app="todo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-animate.js"></script>
+    <script src="js/main.js"></script>
+</head>
+<body ng-controller="mian">
+<div class="tobos">
+    <h1>{{title}}</h1>
+    <div class="tobo">
+        <div class="header">
+            <input type="text" placeholder="What needs to be done?" ng-model="name" ng-keyup="add($event);save()">
+        </div>
+        <ul class="content" ng-init=" tiaojian=''">
+            <li class="inner" ng-repeat="v in todos | filter:{isDone:tiaojian} track by v.id" ng-class="{wangcheng:v.isDone,bianji:ed}" ng-click="focus($event);save()" ng-init="ed=false">
+                <div class="check" ng-click="v.isDone=!v.isDone;save()">✓</div>
+                <p ng-click="ed=true">{{v.name}}</p>
+                <input type="text"  ng-model="v.name" ng-blur="ed=false" ng-change="save()">
+            <div class="delete" ng-click="delete(v.id);save()">⨉</div>
+        </li>
+        </ul>
+        <ul class="footer">
+            <li class="lenght"><p>{{(todos|filter:{isDone:tiaojian}).length}}</p><span>time left</span></li>
+            <li class="inner">
+                <div class="box" ng-class="{red:tiaojian===''}" ng-click="tiaojian='';setcount('all')">All</div>
+                <div class="active"  ng-class="{red:tiaojian===false}" ng-click="tiaojian=false;setcount('active')">Active</div>
+                <div class="Completed" ng-class="{red:tiaojian===true}" ng-click="tiaojian=true ;setcount('complete')">complete</div>
+            </li>
+            <li ng-click="clear();save()">Clear pleted</li>
+        </ul>
+    </div>
+    <div class="text">
+        <p>Double-click to edit a todo</p>
+        <p>Created by Sindre Sorhus</p>
+        <p>Part of TodoMVC</p>
+    </div>
+</div>
+</body>
+</html>
